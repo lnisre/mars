@@ -90,7 +90,9 @@ class LongLinkConnectObserver : public MComplexConnect {
     virtual bool OnVerifySend(unsigned int _index, const socket_address& _addr, SOCKET _socket, AutoBuffer& _buffer_send) {
         AutoBuffer body;
         AutoBuffer extension;
-        longlink_noop_req_body(body, extension);
+        //        longlink_noop_req_body(body);
+        int err_code = 0;
+        Req2Buf(Task::kNoopTaskID, NULL, body, extension, err_code, Task::kChannelLong);
         longlink_pack(longlink_noop_cmdid(), Task::kNoopTaskID, body, extension, _buffer_send, NULL);
         return true;
     }
@@ -192,7 +194,9 @@ bool LongLink::SendWhenNoData(const AutoBuffer& _body, const AutoBuffer& _extens
 bool LongLink::__SendNoopWhenNoData() {
     AutoBuffer body;
     AutoBuffer extension;
-    longlink_noop_req_body(body, extension);
+    int err_code = 0;
+    Req2Buf(Task::kNoopTaskID, NULL, body, extension, err_code, Task::kChannelLong);
+    //        longlink_noop_req_body(body);
     return  SendWhenNoData(body, extension, longlink_noop_cmdid(), Task::kNoopTaskID);
 }
 
