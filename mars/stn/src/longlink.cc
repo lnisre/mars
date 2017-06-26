@@ -306,7 +306,9 @@ bool LongLink::__NoopResp(uint32_t _cmdid, uint32_t _taskid, AutoBuffer& _buf, A
     if (longlink_noop_isresp(Task::kNoopTaskID, _cmdid, _taskid, _buf, _extension)) {
 //        longlink_noop_resp_body(_buf, _extension);
         int err_code = 0;
-        Buf2Resp(Task::kNoopTaskID, NULL, _buf, _extension, err_code, Task::kChannelLong);
+        move_wrapper<AutoBuffer> body(_buf);
+        move_wrapper<AutoBuffer> extension(_extension);
+        Buf2Resp(Task::kNoopTaskID, NULL, body, _extension, err_code, Task::kChannelLong);
         xinfo2(TSF"end noop");
         is_noop = true;
     }
