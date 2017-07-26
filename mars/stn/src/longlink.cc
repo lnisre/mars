@@ -642,9 +642,9 @@ void LongLink::__RunReadWrite(SOCKET _sock, ErrCmdType& _errtype, int& _errcode,
             
             if (0 > writelen) writelen = 0;
             
-            unsigned long long noop_interval = __GetNextHeartbeatInterval();
-            alarmnoopinterval.Cancel();
-            alarmnoopinterval.Start((int)noop_interval);
+//            unsigned long long noop_interval = __GetNextHeartbeatInterval();
+//            alarmnoopinterval.Cancel();
+//            alarmnoopinterval.Start((int)noop_interval);
             
             
             xinfo2(TSF"all send:%_, count:%_, ", writelen, lstsenddata_.size()) >> xlog_group;
